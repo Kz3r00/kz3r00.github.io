@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Status - Nosso Espaço 💬</title>
+    <link rel="stylesheet" href="../style.css">
+    <style>
+/* Estilo para os novos emojis nos títulos */
+.status-item h3 span {
+    font-size: 1.3em;
+    filter: drop-shadow(0 0 5px rgba(255, 215, 0, 0.7));
+}
+
+/* Efeito hover nas barras */
+.status-item:hover {
+    transform: translateY(-3px);
+    transition: all 0.3s ease;
+}
+
+/* Destaque diferente para as barras "highlight" */
+.highlight {
+    background: rgba(255, 215, 0, 0.1);
+    border-left: 3px solid #ffd700;
+    padding-left: 15px;
+}
+        .status-container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+        }
+        
+        .status-item {
+            margin-bottom: 25px;
+        }
+        
+        .status-item h3 {
+            color: #ffd700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .status-slider {
+            width: 100%;
+            height: 10px;
+            -webkit-appearance: none;
+            background: linear-gradient(90deg, #ff6b6b, #feca57, #2ecc71);
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        
+        .status-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            background: white;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        
+        .relationship-levels {
+            display: flex;
+            justify-content: space-between;
+            margin: 10px 0;
+            font-size: 0.8rem;
+        }
+        
+        .highlight {
+            background: rgba(255, 215, 0, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+        }
+        
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: white;
+            margin-top: 20px;
+            min-height: 80px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Menu Superior (igual às outras páginas) -->
+    <header>
+        <div class="logo">
+            <img src="../imagens/logo.png" alt="Logo">
+        </div>
+        <div class="menu-toggle">
+            <img src="../imagens/menu-icon.png" alt="Menu">
+        </div>
+        <nav class="menu">
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="servicos.html">Serviços</a></li>
+                <li><a href="status.html">Status</a></li>
+                <li><a href="mensagens.html">Mensagens</a></li>
+                <li><a href="contato.html">Contato</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Conteúdo -->
+    <main>
+        <div class="status-container">
+            <h2>Como Você Está Hoje? 💭</h2>
+            
+            <!-- Status Pessoal -->
+            <div class="status-item">
+                <h3>Energia Hoje <span>⚡</span></h3>
+                <input type="range" min="0" max="100" value="70" class="status-slider" id="energia">
+            </div>
+            
+            <div class="status-item">
+                <h3>Bateria Social <span>👥</span></h3>
+                <input type="range" min="0" max="100" value="50" class="status-slider" id="social">
+            </div>
+<!-- 1. Barra de "Momento do Dia" -->
+<div class="status-item">
+    <h3>Qual seu momento hoje? <span>🌅</span></h3>
+    <div class="relationship-levels">
+        <span>Madrugada Pensativa</span>
+        <span>Tarde Produtiva</span>
+        <span>Noite Aconchegante</span>
+    </div>
+    <input type="range" min="0" max="100" value="50" class="status-slider" id="momento-dia">
+</div>
+
+<!-- 2. Barra de "Saudade" -->
+<div class="status-item highlight">
+    <h3>Nível de Saudade <span>💌</span></h3>
+    <div class="relationship-levels">
+        <span>Zero</span>
+        <span>Leve</span>
+        <span>Controlada</span>
+        <span>Extrema</span>
+    </div>
+    <input type="range" min="0" max="100" value="30" class="status-slider" id="saudade">
+</div>
+
+<!-- 3. Barra de "Criatividade" -->
+<div class="status-item">
+    <h3>Pique Criativo <span>🎨</span></h3>
+    <div class="relationship-levels">
+        <span>Bloqueio</span>
+        <span>Ideias Soltas</span>
+        <span>Flow Total</span>
+    </div>
+    <input type="range" min="0" max="100" value="70" class="status-slider" id="criatividade">
+</div>
+
+<!-- 4. Barra de "Vibe Musical" -->
+<div class="status-item">
+    <h3>Vibe Musical Atual <span>🎧</span></h3>
+    <div class="relationship-levels">
+        <span>Calmo</span>
+        <span>Nostálgico</span>
+        <span>Energético</span>
+    </div>
+    <input type="range" min="0" max="100" value="60" class="status-slider" id="musica">
+</div>
+
+<!-- 5. Barra Secreta "Nosso Inside Joke" -->
+<div class="status-item highlight" style="background: rgba(255, 215, 0, 0.2);">
+    <h3>Nível de humor <span>🤫</span></h3>
+    <div class="relationship-levels">
+        <span>Não quero dizer</span>
+        <span>Rindo sozinho</span>
+        <span>Preciso te contar</span>
+    </div>
+    <input type="range" min="0" max="100" value="80" class="status-slider" id="inside-joke">
+</div>
+            
+            <div class="status-item">
+                <h3>Nível de Canseira <span>😴</span></h3>
+                <input type="range" min="0" max="100" value="30" class="status-slider" id="cansaco">
+            </div>
+            
+            <!-- Status do Relacionamento -->
+            <div class="status-item highlight">
+                <h3>Nível de Conexão <span>🔗</span></h3>
+                <div class="relationship-levels">
+                    <span>Desconhecidos</span>
+                    <span>Amigos</span>
+                    <span>❤Melhores Amigos❤</span>
+                    <span>Mais do que isso?</span>
+                </div>
+                <input type="range" min="0" max="100" value="75" class="status-slider" id="conexao">
+            </div>
+            
+            <!-- Mensagem Livre -->
+            <textarea id="mensagem-livre" placeholder="Algo que você queira compartilhar... (opcional)"></textarea>
+        </div>
+    </main>
+
+    <!-- Rodapé -->
+    <footer>
+        <p>© 2025 Kayky - Todos os direitos reservados</p>
+        <p>Feito com ❤️ especialmente para você</p>
+    </footer>
+
+    <script>
+        // Menu toggle (igual às outras páginas)
+        document.querySelector('.menu-toggle').addEventListener('click', function() {
+            const menu = document.querySelector('.menu');
+            menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+        });
+
+        // Sistema de salvamento (igual à página de serviços)
+        function salvarStatus() {
+            // Adicione os novos IDs para salvar automaticamente
+const status = {
+    energia: document.getElementById('energia').value,
+    social: document.getElementById('social').value,
+    cansaco: document.getElementById('cansaco').value,
+    conexao: document.getElementById('conexao').value,
+    momentoDia: document.getElementById('momento-dia').value,
+    saudade: document.getElementById('saudade').value,
+    criatividade: document.getElementById('criatividade').value,
+    musica: document.getElementById('musica').value,
+    insideJoke: document.getElementById('inside-joke').value,
+    mensagem: document.getElementById('mensagem-livre').value
+};
+
+        // Carrega status salvo
+        function carregarStatus() {
+            const salvo = localStorage.getItem('statusDiario');
+            if (salvo) {
+                const status = JSON.parse(salvo);
+                document.getElementById('energia').value = status.energia;
+                document.getElementById('social').value = status.social;
+                document.getElementById('cansaco').value = status.cansaco;
+                document.getElementById('conexao').value = status.conexao;
+                document.getElementById('mensagem-livre').value = status.mensagem || '';
+            }
+        }
+
+        // Ouvir mudanças
+        document.querySelectorAll('.status-slider, #mensagem-livre').forEach(elemento => {
+            elemento.addEventListener('input', salvarStatus);
+        });
+
+        // Carregar ao abrir a página
+        window.addEventListener('DOMContentLoaded', carregarStatus);
+    </script>
+</body>
+</html>

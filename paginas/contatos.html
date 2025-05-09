@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caixa de Desabafos 💬</title>
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        /* Estilos gerais (mantendo o visual da página de status) */
+        body {
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+            color: white;
+            font-family: 'Georgia', serif;
+            margin: 0;
+            min-height: 100vh;
+            padding-top: 60px;
+        }
+        
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Container principal */
+        .tab-container {
+            max-width: 800px;
+            margin: 20px auto;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+
+        /* Abas */
+        .tabs {
+            display: flex;
+            background: rgba(0, 0, 0, 0.2);
+        }
+        
+        .tab {
+            padding: 15px 20px;
+            cursor: pointer;
+            text-align: center;
+            flex: 1;
+            transition: all 0.3s;
+            border-bottom: 3px solid transparent;
+        }
+        
+        .tab.active {
+            border-bottom: 3px solid #ffd700;
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Conteúdo das abas */
+        .tab-content {
+            display: none;
+            padding: 25px;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        /* Área de texto e botões */
+        .text-box {
+            position: relative;
+        }
+        
+        textarea {
+            width: 100%;
+            padding: 15px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            font-size: 16px;
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        .buttons {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        button {
+            padding: 10px 20px;
+            border-radius: 20px;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        
+        .send-btn {
+            background: linear-gradient(90deg, #2ecc71, #27ae60);
+            color: white;
+        }
+        
+        .clear-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Mensagem de confirmação */
+        .confirmation {
+            display: none;
+            text-align: center;
+            margin-top: 15px;
+            padding: 10px;
+            background: rgba(46, 204, 113, 0.2);
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Menu Superior -->
+    <header>
+        <div class="logo">
+            <img src="../imagens/logo.png" alt="Logo">
+        </div>
+        <div class="menu-toggle">
+            <img src="../imagens/menu-icon.png" alt="Menu">
+        </div>
+        <nav class="menu">
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="servicos.html">Serviços</a></li>
+                <li><a href="status.html">Status</a></li>
+                <li><a href="mensagens.html">Mensagens</a></li>
+                <li><a href="contato.html">Contato</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="tab-container">
+        <!-- Abas -->
+        <div class="tabs">
+            <div class="tab active" data-tab="daily">Dia a Dia</div>
+            <div class="tab" data-tab="angry">Raiva/Tristeza</div>
+            <div class="tab" data-tab="secret">Segredos</div>
+        </div>
+        
+        <!-- Conteúdo das Abas -->
+        
+        <!-- 1. Dia a Dia -->
+        <div class="tab-content active" id="daily">
+            <h3>📅 Coisas do dia que você não me contou</h3>
+            <p>Aqueles detalhes pequenos que ficaram faltando na conversa...</p>
+            <div class="text-box">
+                <textarea placeholder="O que aconteceu hoje que eu não sei?"></textarea>
+                <div class="buttons">
+                    <button class="clear-btn">Limpar</button>
+                    <button class="send-btn">Guardar</button>
+                </div>
+            </div>
+            <div class="confirmation">Mensagem do dia guardada com carinho!</div>
+        </div>
+        
+        <!-- 2. Raiva/Tristeza -->
+        <div class="tab-content" id="angry">
+            <h3>😤 Razões para estar chateada comigo</h3>
+            <p>Me ajude a entender o que fiz de errado (pode ser anônimo)...</p>
+            <div class="text-box">
+                <textarea placeholder="O que eu fiz que te deixou brava/triste?"></textarea>
+                <div class="buttons">
+                    <button class="clear-btn">Limpar</button>
+                    <button class="send-btn">Enviar</button>
+                </div>
+            </div>
+            <div class="confirmation">Obrigado por compartilhar. Vou refletir sobre isso.</div>
+        </div>
+        
+        <!-- 3. Segredos (com comportamento especial) -->
+        <div class="tab-content" id="secret">
+            <h3>🤫 Segredos Profundos</h3>
+            <p>Algo sobre você, sobre alguém, ou que não quer que eu saiba ainda...</p>
+            <div class="text-box">
+                <textarea placeholder="Desabafe sem medo, isso não será salvo"></textarea>
+                <div class="buttons">
+                    <button class="clear-btn" id="destroy-btn">Apagar Para Sempre</button>
+                </div>
+            </div>
+            <div class="confirmation" id="secret-confirm">Seu segredo está a salvo comigo (e foi vaporizado).</div>
+        </div>
+    </div>
+
+    <!-- Rodapé -->
+    <footer>
+        <p>© 2025 Kayky - Todos os direitos reservados</p>
+        <p>Feito com ❤️ especialmente para você</p>
+    </footer>
+
+    <script>
+        // Sistema de abas
+        const tabs = document.querySelectorAll('.tab');
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Remove classe ativa de todas as abas
+                tabs.forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                
+                // Ativa a aba clicada
+                tab.classList.add('active');
+                document.getElementById(tab.dataset.tab).classList.add('active');
+            });
+        });
+
+        // Sistema de mensagens (para as abas normais)
+        document.querySelectorAll('.send-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const tabContent = this.closest('.tab-content');
+                const textarea = tabContent.querySelector('textarea');
+                const confirmation = tabContent.querySelector('.confirmation');
+                
+                if(textarea.value.trim() !== '') {
+                    // Salva no localStorage
+                    const messages = JSON.parse(localStorage.getItem('tabMessages') || {};
+                    messages[tabContent.id] = messages[tabContent.id] || [];
+                    messages[tabContent.id].push({
+                        text: textarea.value,
+                        date: new Date().toISOString()
+                    });
+                    localStorage.setItem('tabMessages', JSON.stringify(messages));
+                    
+                    // Mostra confirmação
+                    confirmation.style.display = 'block';
+                    setTimeout(() => {
+                        confirmation.style.display = 'none';
+                    }, 3000);
+                    
+                    // Limpa o campo
+                    textarea.value = '';
+                }
+            });
+        });
+
+        // Botão de limpar
+        document.querySelectorAll('.clear-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const textarea = this.closest('.text-box').querySelector('textarea');
+                textarea.value = '';
+            });
+        });
+
+        // Comportamento ESPECIAL para a aba de segredos
+        document.getElementById('destroy-btn').addEventListener('click', function() {
+            const textarea = document.querySelector('#secret textarea');
+            const confirmation = document.getElementById('secret-confirm');
+            
+            if(textarea.value.trim() !== '') {
+                // NÃO SALVA - APENAS MOSTRA A CONFIRMAÇÃO
+                confirmation.style.display = 'block';
+                setTimeout(() => {
+                    confirmation.style.display = 'none';
+                }, 3000);
+                
+                // Limpa o campo
+                textarea.value = '';
+            }
+        });
+
+        // Menu toggle
+        document.querySelector('.menu-toggle').addEventListener('click', function() {
+            const menu = document.querySelector('.menu');
+            menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+        });
+    </script>
+</body>
+</html>

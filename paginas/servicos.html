@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Serviços - Para Você ❤️</title>
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        /* Estilos específicos para a página de serviços */
+        .servico-container {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 800px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .servico-container::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .servico-container.desativado::after {
+            opacity: 1;
+        }
+
+        .servico-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .servico-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .servico-title {
+            font-size: 1.5rem;
+            margin: 0;
+            color: #ffd700;
+        }
+
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 30px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 22px;
+            width: 22px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: #e67e7e;
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(30px);
+        }
+
+        .servico-descricao {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+
+        .servico-obs {
+            font-style: italic;
+            color: #ffd700;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            margin: 10px 0;
+        }
+
+        .comentario-container {
+            margin-top: 15px;
+        }
+
+        .comentario-input {
+            width: 100%;
+            padding: 10px;
+            border-radius: 8px;
+            border: none;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            resize: vertical;
+            min-height: 60px;
+        }
+
+        .page-intro {
+            text-align: center;
+            margin: 20px auto;
+            max-width: 800px;
+            padding: 0 20px;
+        }
+
+        @media (max-width: 768px) {
+            .servico-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .toggle-switch {
+                margin-top: 10px;
+                align-self: flex-end;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Menu Superior (igual ao index.html) -->
+    <header>
+        <div class="logo">
+            <img src="../imagens/logo.png" alt="Logo">
+        </div>
+        <div class="menu-toggle">
+            <img src="../imagens/menu-icon.png" alt="Menu">
+        </div>
+        <nav class="menu">
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="servicos.html">Serviços</a></li>
+                <li><a href="status.html">Status</a></li>
+                <li><a href="mensagens.html">Mensagens</a></li>
+                <li><a href="contato.html">Contato</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Conteúdo da Página -->
+    <main>
+        <div class="page-intro">
+            <h2>Coisas que eu faria por você</h2>
+            <p>Aqui você pode escolher quais gestos gostaria que eu fizesse por você. Cada um tem um significado especial para mim.</p>
+        </div>
+
+        <!-- Serviço 1 -->
+        <div class="servico-container" id="servico1">
+            <div class="servico-content">
+                <div class="servico-header">
+                    <h3 class="servico-title">Cartas escritas à mão</h3>
+                    <label class="toggle-switch">
+                        <input type="checkbox" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <p class="servico-descricao">Em uma era digital, uma carta escrita à mão demonstra um esforço genuíno e mostra que eu me importo o suficiente para dedicar meu tempo a você.</p>
+                <p class="servico-obs">Obs: tento expressar meus sentimentos, compartilhando memórias ou pensamentos especiais sobre você</p>
+                <div class="comentario-container">
+                    <textarea class="comentario-input" placeholder="Seus comentários sobre este gesto..."></textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- Serviço 2 -->
+        <div class="servico-container" id="servico2">
+            <div class="servico-content">
+                <div class="servico-header">
+                    <h3 class="servico-title">Jantar especial</h3>
+                    <label class="toggle-switch">
+                        <input type="checkbox" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <p class="servico-descricao">Não precisa ser um lugar complexo, apenas algo escolhido com amor e atenção. Escolhendo um local que você goste ou tente algo novo juntos.</p>
+                <p class="servico-obs">Obs: apesar de ser difícil te levar para sair, você é alguém na qual vale a pena me esforçar.</p>
+                <div class="comentario-container">
+                    <textarea class="comentario-input" placeholder="Seus comentários sobre este gesto..."></textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- Serviço 3 -->
+        <div class="servico-container" id="servico3">
+            <div class="servico-content">
+                <div class="servico-header">
+                    <h3 class="servico-title">Presentes personalizados</h3>
+                    <label class="toggle-switch">
+                        <input type="checkbox" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <p class="servico-descricao">Presentes personalizados demonstram que eu tento prestar atenção aos detalhes e conhecer os seus gostos e interesses. Pode ser um desenho, algumas flores, uma pelúcia, um poema ou qualquer outra coisa que seja significativa.</p>
+                <p class="servico-obs">Obs: eu adoro tentar esse, e vou me esforçar para sempre ser criativo.</p>
+                <div class="comentario-container">
+                    <textarea class="comentario-input" placeholder="Seus comentários sobre este gesto..."></textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- Serviço 4 -->
+        <div class="servico-container" id="servico4">
+            <div class="servico-content">
+                <div class="servico-header">
+                    <h3 class="servico-title">Passeio divertido</h3>
+                    <label class="toggle-switch">
+                        <input type="checkbox" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <p class="servico-descricao">Um passeio ao ar livre, seja em um parque, na praia ou em uma trilha, pode ser uma ótima oportunidade para conversarmos, desfrutar da companhia um do outro e criar memórias especiais.</p>
+                <p class="servico-obs">Obs: estar com você é sempre incrível independente do lugar.</p>
+                <div class="comentario-container">
+                    <textarea class="comentario-input" placeholder="Seus comentários sobre este gesto..."></textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- Serviço 5 -->
+        <div class="servico-container" id="servico5">
+            <div class="servico-content">
+                <div class="servico-header">
+                    <h3 class="servico-title">Fazer algo que você goste</h3>
+                    <label class="toggle-switch">
+                        <input type="checkbox" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <p class="servico-descricao">Quando eu souber que você gosta de um determinado tipo de filme, música, esporte ou atividade, convidar você para fazer algo relacionado a isso. Isso demonstra que eu me importo com seus interesses e quero compartilhar momentos especiais com você.</p>
+                <p class="servico-obs">Obs: eu sempre adoro qualquer coisa que você faça.</p>
+                <div class="comentario-container">
+                    <textarea class="comentario-input" placeholder="Seus comentários sobre este gesto..."></textarea>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Rodapé -->
+    <footer>
+        <p>© 2025 Kayky - Todos os direitos reservados</p>
+        <p>Feito com ❤️ especialmente para você</p>
+    </footer>
+
+    <script>
+        // Menu toggle (igual ao index.html)
+        document.querySelector('.menu-toggle').addEventListener('click', function() {
+            const menu = document.querySelector('.menu');
+            menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+        });
+
+        // Ativar/desativar serviços
+        document.querySelectorAll('.toggle-switch input').forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                const container = this.closest('.servico-container');
+                if (this.checked) {
+                    container.classList.remove('desativado');
+                } else {
+                    container.classList.add('desativado');
+                }
+                
+                // Aqui você pode adicionar código para salvar a preferência
+                // Exemplo: localStorage.setItem(container.id, this.checked);
+            });
+        });
+
+        // Carregar preferências salvas (se existirem)
+        window.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.servico-container').forEach(container => {
+                // Exemplo de carregamento:
+                // const savedState = localStorage.getItem(container.id);
+                // if (savedState === 'false') {
+                //     container.querySelector('input').checked = false;
+                //     container.classList.add('desativado');
+                // }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,103 @@
+/* Estilos Globais */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    color: white;
+    background: linear-gradient(135deg, #ff0000, #0000ff);
+    min-height: 100vh;
+}
+
+/* Menu Superior */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.logo img {
+    height: 50px;
+}
+
+.menu-toggle {
+    cursor: pointer;
+}
+
+.menu-toggle img {
+    height: 30px;
+}
+
+.menu {
+    display: none;
+    position: absolute;
+    right: 20px;
+    top: 70px;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 15px;
+    border-radius: 5px;
+}
+
+.menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.menu li {
+    margin: 10px 0;
+}
+
+.menu a {
+    color: white;
+    text-decoration: none;
+}
+
+/* Conteúdo Principal */
+main {
+    padding: 20px;
+    text-align: center;
+}
+
+.mensagem-diaria {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.imagem-dia img {
+    max-width: 200px;
+    border-radius: 10px;
+    margin-right: 20px;
+}
+
+.texto-dia {
+    max-width: 400px;
+    font-size: 1.2rem;
+}
+
+.video-container {
+    margin: 30px auto;
+    max-width: 560px;
+}
+
+.declaracao {
+    margin: 30px auto;
+    max-width: 600px;
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+/* Rodapé */
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.3);
+    margin-top: 50px;
+}
+
+footer p {
+    margin: 5px 0;
+}

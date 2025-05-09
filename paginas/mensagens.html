@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mensagens para Você 💌</title>
+    <style>
+        body {
+            background: linear-gradient(135deg, #8a2be2, #4b0082);
+            color: white;
+            font-family: 'Georgia', serif;
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        .mensagens-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .temas-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin: 30px 0;
+        }
+        .tema-box {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .tema-box:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.15);
+        }
+        .tema-box h3 {
+            margin: 0;
+            color: #ffd700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .aviso {
+            font-size: 0.8rem;
+            color: #ffd700;
+            font-style: italic;
+            margin: 5px 0;
+        }
+        .mensagem-box {
+            background: rgba(0, 0, 0, 0.3);
+            border-left: 4px solid #e67e7e;
+            padding: 25px;
+            margin: 30px auto;
+            min-height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            border-radius: 8px;
+            transition: opacity 0.5s;
+            position: relative;
+            overflow: hidden;
+        }
+        .mensagem-box p {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            text-align: center;
+            margin: 0;
+        }
+        .favorito-btn {
+            margin-top: 15px;
+            cursor: pointer;
+            opacity: 0.5;
+            transition: all 0.3s;
+        }
+        .favorito-btn:hover {
+            opacity: 1;
+            transform: scale(1.2);
+        }
+        .favorito-btn.ativo {
+            opacity: 1;
+            color: #ff6b6b;
+        }
+        .estrela {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: -1;
+            animation: piscar 3s infinite;
+        }
+        @keyframes piscar {
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 1; }
+        }
+        @media (max-width: 600px) {
+            .temas-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+<!-- Menu Superior Fixo -->
+<header style="
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(5px);
+">
+    <div class="logo">
+        <img src="../imagens/logo.png" alt="Logo" style="height: 40px;">
+    </div>
+    <div class="menu-toggle" style="cursor: pointer;">
+        <img src="../imagens/menu-icon.png" alt="Menu" style="height: 25px;">
+    </div>
+    <nav class="menu" style="
+        display: none;
+        position: absolute;
+        top: 70px;
+        right: 20px;
+        background: rgba(0, 0, 0, 0.9);
+        padding: 15px;
+        border-radius: 8px;
+    ">
+        <ul style="list-style: none; padding: 0; margin: 0;">
+            <li style="margin: 10px 0;"><a href="../index.html" style="color: white; text-decoration: none;">Home</a></li>
+            <li style="margin: 10px 0;"><a href="servicos.html" style="color: white; text-decoration: none;">Serviços</a></li>
+            <li style="margin: 10px 0;"><a href="status.html" style="color: white; text-decoration: none;">Status</a></li>
+            <li style="margin: 10px 0;"><a href="mensagens.html" style="color: white; text-decoration: none;">Mensagens</a></li>
+            <li style="margin: 10px 0;"><a href="contato.html" style="color: white; text-decoration: none;">Contato</a></li>
+        </ul>
+    </nav>
+</header>
+
+<script>
+    // Script do Menu (para colar junto)
+    document.querySelector('.menu-toggle').addEventListener('click', function() {
+        const menu = document.querySelector('.menu');
+        menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+    });
+</script>
+    <div class="mensagens-container">
+        <h1>Fábrica de Mensagens 💌</h1>
+        <p>Escolha um tema e descubra mensagens feitas especialmente para você:</p>
+
+        <div class="temas-grid">
+            <!-- Tema 1 -->
+            <div class="tema-box" onclick="gerarMensagem('luz-dos-meus-dias')">
+                <h3>Luz dos Meus Dias ✨</h3>
+            </div>
+            
+            <!-- Tema 2 -->
+            <div class="tema-box" onclick="gerarMensagem('forja-de-herois')">
+                <h3>Forja de Heróis ⚔️</h3>
+            </div>
+            
+            <!-- Tema 3 -->
+            <div class="tema-box" onclick="gerarMensagem('paisagens-da-alma')">
+                <h3>Paisagens da Alma 🏞️</h3>
+            </div>
+            
+            <!-- Tema 4 -->
+            <div class="tema-box" onclick="gerarMensagem('cantadas-bobas')">
+                <h3>Cantadas Bobas 😄</h3>
+            </div>
+            
+            <!-- Tema 5 -->
+            <div class="tema-box" onclick="gerarMensagem('jardim-secreto')">
+                <h3>Jardim Secreto 🌿</h3>
+            </div>
+            
+            <!-- Tema 6 -->
+            <div class="tema-box" onclick="gerarMensagem('constelacao-particular')">
+                <h3>Constelação Particular 🌠</h3>
+            </div>
+            
+            <!-- Tema 7 -->
+            <div class="tema-box" onclick="gerarMensagem('juramentos-eternos')">
+                <h3>Juramentos Eternos 🤝</h3>
+            </div>
+            
+            <!-- Tema 8 -->
+            <div class="tema-box" onclick="gerarMensagem('divida-de-gratidao')">
+                <h3>Dívida de Gratidão 🙏</h3>
+            </div>
+            
+            <!-- Tema 9 -->
+            <div class="tema-box" onclick="gerarMensagem('cantadas-romanticas')">
+                <h3>Cantadas Românticas ♥️</h3>
+                <p class="aviso">(Opcional - só abra se estiver no clima!)</p>
+            </div>
+            
+            <!-- Tema 10 -->
+            <div class="tema-box" onclick="gerarMensagem('tempo-presente')">
+                <h3>Tempo Presente ⏳</h3>
+            </div>
+        </div>
+
+        <div class="mensagem-box" id="mensagem-gerada">
+            <p>Selecione um tema acima...</p>
+        </div>
+    </div>
+
+    <script>
+        // TODAS AS 300+ MENSAGENS ORGANIZADAS POR TEMA
+        const mensagensPorTema = {
+            "luz-dos-meus-dias": [
+                "Seu sorriso é meu combustível para dias melhores",
+                "Sua voz é o único GPS que eu preciso na vida",
+                "Inventariaria cada motivo do seu sorriso, mas faltariam páginas no mundo",
+                "Você sorri com os olhos antes dos lábios - e meu coração sempre sabe antes do meu cérebro",
+                "Seu sorriso não é só fofo - é um farol que me guia nos dias mais cinzentos",
+                "Até quando está triste, você presenteia o mundo com essa luz",
+                "Seu sorriso é como o nascer do sol: mesmo quando esperado, sempre me surpreende",
+                "Você ilumina o ambiente não com luz, mas com essa aura única que só você tem",
+                "Se sorriso fosse moeda, você seria a pessoa mais rica do planeta",
+                "Seu sorriso é meu alarme biológico: só um dia vale a pena quando ele aparece",
+                "Seu sorriso tem o poder de reescrever meus dias ruins",
+                "Você é a prova viva que alegria pode ser contagiosa",
+                "Seu sorriso é meu ponto cardeal - sempre sei onde estou quando o vejo",
+                "Você sorri como quem presenteia o mundo com pequenos milagres",
+                "Seu sorriso desarma até os dias mais armados",
+                "Você é a definição de 'luz própria' que os dicionários esqueceram",
+                "Seu sorriso é meu spoiler de que o dia vai melhorar",
+                "Você transforma sorrisos em linguagem universal",
+                "Seu sorriso é como um ato de resistência contra tudo que é cinza",
+                "Você é a prova de que sorrisos podem ser herança genética da alegria",
+                "Seu sorriso é meu GPS emocional",
+                "Você sorri como quem acende velas em cavernas escuras",
+                "Seu sorriso é meu certificado de que a beleza existe",
+                "Você distribui sorrisos como quem planta jardins",
+                "Seu sorriso é meu lembrete diário de que vale a pena viver",
+                "Você é a única pessoa cujo sorriso eu reconheceria no escuro",
+                "Seu sorriso é meu código de barras para dias bons",
+                "Você tem o sorriso mais honesto que já vi - nunca esconde o que sente",
+                "Seu sorriso é meu selo de qualidade para o dia",
+                "Você é a pessoa que me faz entender por que 'sorriso' rima com 'paraíso'"
+            ],
+            "forja-de-herois": [
+                "Você é a prova de que gentileza e força são irmãs gêmeas",
+                "Me ensine a ser um pouquinho do que você é: aquela coragem que não precisa de armadura",
+                "Até sua sombra é inspiradora - sempre elegante, mesmo nos dias tortos",
+                "Você me inspira a ser melhor não por perfeição, mas pela forma como transforma até as pequenas coisas em algo mágico",
+                "Quero ser digno do seu sorriso",
+                "Sua força silenciosa é mais poderosa que qualquer grito",
+                "Você transforma desafios em degraus - e eu admiro cada passo",
+                "Sua resiliência é aula que eu nunca faltaria",
+                "Até quando duvida de si, você inspira os outros a acreditarem",
+                "Você é a definição viva de 'fazer o bem sem olhar a quem'",
+                "Sua gentileza é revolucionária num mundo tão apressado",
+                "Você me mostrou que heroísmo não precisa de capa - às vezes basta um abraço no momento certo",
+                "Sua coragem é tão natural quanto seu respirar",
+                "Você é como água corrente: vai moldando pedras duras sem fazer alarde",
+                "Sua persistência me ensinou que não existem muros, só degraus disfarçados",
+                "Você transforma vulnerabilidade em ensinamento",
+                "Sua ética é bússola que nunca falha",
+                "Você é a prova de que integridade e calor humano podem habitar o mesmo corpo",
+                "Sua capacidade de recomeçar é lição que eu estudo todo dia",
+                "Você faz da empatia sua superpotência",
+                "Sua inteligência emocional é obra de arte em constante evolução",
+                "Você ensina sem palavras - seu exemplo já é currículo completo",
+                "Sua paciência é como raiz de árvore: firme e cheia de histórias",
+                "Você é mestre em transformar lágrimas em aprendizado",
+                "Sua generosidade não conhece fronteiras",
+                "Você é arquiteta de pontes onde outros veem abismos",
+                "Sua coragem de ser autêntica é farol para quem está perdido",
+                "Você transforma quedas em coreografias graciosas",
+                "Sua luz não ofusca - ilumina quem está por perto",
+                "Você é a prova de que humanos podem ser anjos disfarçados"
+            ],
+            "paisagens-da-alma": [
+                "Você é como o cheiro de livro novo: sempre me surpreendendo com camadas escondidas",
+                "Se fosse paisagem, seria um lago de montanha: tranquila por fora, profunda por dentro",
+                "Todo mapa do meu coração tem um 'X' marcando onde você está",
+                "Você é como a brisa do mar: mexe com tudo, mas ninguém vê",
+                "Se fosse estação do ano, seria primavera: traz vida até onde não esperamos",
+                "Você é como café fresco de manhã: conforto que se renova a cada dia",
+                "Se fosse fenômeno natural, seria aurora boreal: rara, hipnotizante e impossível de descrever",
+                "Você é como árvore antiga: suas raízes são histórias que eu quero ouvir",
+                "Se fosse clima, seria aquele dia perfeito entre chuva e sol",
+                "Você é como pôr do sol na praia: toda vez que vejo, acho mais bonito que da última vez",
+                "Se fosse lugar, seria minha cidade natal: sempre quero voltar",
+                "Você é como jardim secreto: só quem se perde acha",
+                "Se fosse trilha sonora, seria aquela música que a gente ouve no repeat",
+                "Você é como noite estrelada no campo: me lembra que o universo é grande, mas alguns pontos brilham mais",
+                "Se fosse cheiro, seria aquele que a gente sente e pensa 'casa'",
+                "Você é como rio: sempre em movimento, mas nunca perdendo sua essência",
+                "Se fosse monumento, seria patrimônio da humanidade",
+                "Você é como café da manhã de hotel: todo dia descubro uma delícia nova",
+                "Se fosse mapa, seria aquele que leva a tesouros escondidos",
+                "Você é como ponte: conecta mundos que pareciam distantes",
+                "Se fosse estrada, seria aquela cheia de curvas interessantes",
+                "Você é como farol: nem sempre perto, mas sempre orientando",
+                "Se fosse janela, seria aquela com a melhor vista da cidade",
+                "Você é como porto seguro: onde eu posso ser eu sem explicações",
+                "Se fosse paisagem urbana, seria aquela esquina que tem história pra contar",
+                "Você é como café quente em dia frio: reconforto na medida certa",
+                "Se fosse viagem, seria aquela que a gente nunca quer que acabe",
+                "Você é como jardim botânico: sempre algo novo pra admirar",
+                "Se fosse ponte antiga, eu cruzaria todos os dias só pra te ver",
+                "Você é como horizonte: me lembra que sempre há mais pra descobrir"
+            ],
+            "cantadas-bobas": [
+                "Se beleza fosse energia, você resolveria a crise climática sozinha",
+                "Você é como café da manhã de hotel: todo dia descubro uma delícia nova",
+                "Namora comigo? Não? Tudo bem, vou esperar sentado... *abre cadeira dobrável*",
+                "Se beleza desse pane, você deixaria o mundo no escuro!",
+                "Você é como Wi-Fi: quanto mais perto, melhor o sinal!",
+                "Gata, você é igual minha cafeteira: todo dia me desperta o melhor",
+                "Se fosse crime ser linda, você já tinha prisão perpétua",
+                "Você é como meu código: linda, mas às vezes não me responde",
+                "Meu amor por você é igual bug de software: não tem explicação, mas tá aí",
+                "Você é como algoritmo perfeito: complexa e impossível de esquecer",
+                "Se fosse doce, seria brigadeiro: perfeição simples",
+                "Você é como dia de folga: sempre acaba rápido demais",
+                "Me chama de relâmpago, porque você me deixa eletrizado",
+                "Você é como segunda-feira: eu reclamo, mas não vivo sem",
+                "Se fosse música, seria funk: mexe com meu coração sem pedir licença",
+                "Você é como café sem açúcar: forte e do jeito que eu gosto",
+                "Meu coração é como site sem você: 404 not found",
+                "Você é igual minha cadeira gamer: apoio perfeito pros meus melhores momentos",
+                "Se fosse app, seria meu favorito - abro todo dia",
+                "Você é como meu GitHub: me deixa cheio de commits (compromissos)",
+                "Meu amor por você é igual loop infinito: não tem fim",
+                "Você é como variável bem nomeada: fácil de entender, impossível de esquecer",
+                "Se fosse IDE, seria Visual Studio: ilumina meu código (e minha vida)",
+                "Você é como meu café: sempre me deixa alerta pros seus detalhes",
+                "Me chama de JavaScript, porque sem você meu HTML é vazio",
+                "Você é como responsive design: se adapta perfeitamente a qualquer situação",
+                "Se fosse framework, seria React: componente essencial da minha vida",
+                "Você é como meu teclado: sempre me respondendo na medida certa",
+                "Meu coração é como site em produção: cai quando você sai",
+                "Você é como console.log: sempre me traz as respostas que preciso"
+            ],
+            "jardim-secreto": [
+                "Seus cabelos são meu arco-íris particular - sempre acho um pote de ouro no tom certo",
+                "Você é como hera: vai crescendo devagar, mas quando vejo, já tomou todo meu coração",
+                "Até seu nome é jardim: tem letra demais pra caber num verso só",
+                "Seus olhos são como orquídeas raras: quanto mais olho, mais detalhes encontro",
+                "Você é como raiz de árvore antiga: forte sem precisar mostrar",
+                "Se fosse flor, seria peônia: delicada, mas resistente",
+                "Você é como jardim de inverno: aconchegante mesmo quando o mundo lá fora é frio",
+                "Seus gestos são como sementes: pequenos, mas capazes de florestas inteiras",
+                "Você é como musgo: traz vida até onde ninguém espera",
+                "Se fosse estufa, seria a que guarda as espécies mais raras",
+                "Você é como raiz de orquídea: rara e valiosa",
+                "Se fosse paisagismo, seria Burle Marx: revolucionário e cheio de estilo",
+                "Você é como flor de cerejeira: efêmera, mas eterna na memória",
+                "Seus silêncios são como bambu: cheios de significados escondidos",
+                "Você é como jardim vertical: prova de que beleza cabe em qualquer espaço",
+                "Se fosse perfume, seria o cheiro de terra molhada depois da chuva",
+                "Você é como bonsai: pequenos detalhes contam histórias gigantes",
+                "Se fosse folha, seria samambaia: resiliente e cheia de graça",
+                "Você é como jardim de chuva: transforma até as tempestades em algo belo",
+                "Se fosse paisagem, seria aquela que aparece nos sonhos bons",
+                "Você é como raiz de jacarandá: forte o suficiente para sustentar mundos",
+                "Se fosse estação, seria o momento em que as flores percebem que podem desabrochar",
+                "Você é como cacto: sobrevive a desertos e ainda presenteia com flores",
+                "Se fosse jardim, seria aquele que a gente visita e nunca quer ir embora",
+                "Você é como trepadeira: vai conquistando espaços sem pressa",
+                "Se fosse aroma, seria o cheiro de livro novo misturado com café da manhã",
+                "Você é como semente de baobá: pequena agora, mas cheia de potencial gigante",
+                "Se fosse natureza, seria aquela que a gente quer preservar a qualquer custo",
+                "Você é como raiz de árvore genealógica: essencial e cheia de histórias",
+                "Se fosse jardim botânico, eu passaria horas te catalogando"
+            ],
+            "constelacao-particular": [
+                "Se alinhar planetas fosse fácil, eu já teria construído um observatório pra você",
+                "Seus olhos têm o brilho que os astrônomos procuram em outras galáxias",
+                "Você é como a Lua: ilumina minha noite, mas nunca deixo de te achar de dia",
+                "Se fosse constelação, seria Cassiopeia: rainha indiscutível do céu",
+                "Você é como eclipse solar: evento raro que todo mundo quer ver",
+                "Seus pensamentos são como nebulosas: complexos e cheios de beleza escondida",
+                "Você é como estrela cadente: passageira, mas deixa marcas eternas",
+                "Se fosse astronomia, seria meu objeto de estudo preferido",
+                "Você é como Via Láctea: impossível de capturar em uma só foto",
+                "Seus olhos têm mais constelações que o atlas celeste",
+                "Você é como buraco negro: me atrai de forma irresistível",
+                "Se fosse telescópio Hubble, eu apontaria só pra você",
+                "Você é como aurora boreal: dança de luzes que hipnotiza",
+                "Seu brilho rivaliza com o das nebulosas mais distantes",
+                "Você é como supernova: explosão de beleza que ilumina o universo",
+                "Se fosse cometa, eu esperaria anos só pra te ver passar",
+                "Você é como eclipse lunar: transforma o comum em espetáculo",
+                "Seus gestos são como órbitas planetárias: precisos e cheios de graça",
+                "Você é como estrela d'alva: sempre a primeira que eu vejo",
+                "Se fosse astronomia, seria aquela aula que eu nunca faltaria",
+                "Você é como galáxia de Andrômeda: linda mesmo a anos-luz de distância",
+                "Seu sorriso é como eclipse solar total: raro e de tirar o fôlego",
+                "Você é como estrela binária: duas vezes mais brilhante que as outras",
+                "Se fosse observatório, eu passaria noites te estudando",
+                "Você é como planeta habitável: raro e precioso",
+                "Seu charme é como gravidade: impossível de resistir",
+                "Você é como anel de Saturno: único no sistema solar",
+                "Se fosse cosmo, seria meu pedaço preferido",
+                "Você é como estrela de nêutrons: pequena mas incrivelmente densa",
+                "Seu brilho é como quasar: visível mesmo a distâncias impossíveis"
+            ],
+            "juramentos-eternos": [
+                "Prometo nunca usar 'amizade' como desculpa pra não dizer que te acho incrível",
+                "Juro guardar cada abraço seu como se fosse o primeiro (e o último)",
+                "Prometo lembrar que seu 'não' é sagrado, mas meu cuidado com você é eterno",
+                "Prometo nunca ser um motivo pra você querer virar um monge",
+                "Juro nunca comparar você a ninguém - porque cópias nunca alcançam o original",
+                "Prometo comemorar cada pequena vitória sua como se fosse a minha",
+                "Juro ser seu porto seguro mesmo quando as marés da vida estiverem bravas",
+                "Prometo nunca reduzir sua complexidade a adjetivos simples",
+                "Juro guardar seus segredos melhor que cofre de banco",
+                "Prometo lembrar que seu sorriso é conquista, não obrigação",
+                "Juro nunca confundir sua gentileza com fraqueza",
+                "Prometo respeitar seus silêncios como respeito suas palavras",
+                "Juro nunca te colocar em caixinhas - você é universo expandindo",
+                "Prometo lembrar que seu tempo é presente, não dívida",
+                "Juro nunca esquecer que sua beleza é detalhe, não definição",
+                "Prometo celebrar sua autonomia como celebro sua companhia",
+                "Juro nunca confundir amor com posse - você é vento, não jaula",
+                "Prometo lembrar que sua história é só sua pra contar",
+                "Juro nunca te tratar como opção quando você é prioridade",
+                "Prometo enxergar você todos os dias como se fosse a primeira vez",
+                "Juro nunca fingir que te entendo quando na verdade admiro o mistério",
+                "Prometo espaço quando precisar e colo quando quiser",
+                "Juro nunca usar seu passado como arma",
+                "Prometo lembrar que seu corpo é território soberano",
+                "Juro nunca confundir seu carinho com contrato",
+                "Prometo não exigir respostas para perguntas que você ainda não fez a si mesma",
+                "Juro nunca te cobrar por amor que escolhi te dar",
+                "Prometo não projetar em você o que só existe na minha imaginação",
+                "Juro nunca te comparar - nem mesmo com sua versão de ontem",
+                "Prometo lembrar que você não é obrigação, mas escolha diária"
+            ],
+            "divida-de-gratidao": [
+                "Como pagar por cada vez que você transformou meu dia com um 'oi'?",
+                "Devo à sua risada todas minhas doses de serotonina pura",
+                "Obrigado por ser a prova viva de que pessoas douradas existem",
+                "Como retribuir por cada vez que seu sorriso foi meu farol?",
+                "Devo a você aulas de humanidade que nenhum livro ensina",
+                "Obrigado por existir num mundo que precisa tanto de você",
+                "Como agradecer por cada vez que sua honestidade me guiou?",
+                "Devo a você a descoberta de que bondade não é ingenuidade",
+                "Obrigado por ser eclipse nos meus dias muito ensolarados",
+                "Como retribuir por cada vez que seu olhar me entendeu sem palavras?",
+                "Devo a você a coragem de ser mais eu mesmo",
+                "Obrigado por transformar cafés em cerimônias e silêncios em diálogos",
+                "Como pagar por cada vez que sua existência me fez questionar meus preconceitos?",
+                "Devo a você a descoberta de que detalhes são presentes",
+                "Obrigado por ser bússola quando eu nem sabia que estava perdido",
+                "Como agradecer por cada vez que seu exemplo me tirou da zona de conforto?",
+                "Devo a você a certeza de que o mundo tem salvação",
+                "Obrigado por ser meu lembrete diário de que pessoas boas existem",
+                "Como retribuir por cada vez que sua paciência me ensinou?",
+                "Devo a você a descoberta de que tempo junto é moeda rara",
+                "Obrigado por transformar dias comuns em memórias",
+                "Como pagar por cada vez que seu humor salvou meu dia?",
+                "Devo a você a compreensão de que amor não é posse",
+                "Obrigado por ser meu espelho mostrando o melhor de mim",
+                "Como agradecer por cada vez que sua franqueza me fez crescer?",
+                "Devo a você a coragem de admitir quando estou errado",
+                "Obrigado por ser meu porto seguro sem cobrar pedágio",
+                "Como retribuir por cada vez que sua criatividade me inspirou?",
+                "Devo a você a descoberta de que convivência pode ser arte",
+                "Obrigado por existir exatamente como você é"
+            ],
+            "cantadas-romanticas": [
+                "Se amor fosse ciência, você seria minha equação favorita: complexa, bela e sem solução à vista",
+                "Você é como um soneto de Shakespeare: cada detalhe foi planejado para perfeição",
+                "Se fosse livro, eu te releria infinitamente - e ainda encontraria novas metáforas escondidas",
+                "Até o Oxford Dictionary falharia em definir seu charme",
+                "Você é meu paradoxo favorito: quanto mais te conheço, mais mistério encontro",
+                "Se existisse um Nobel da Elegância, você ganharia em todas as categorias",
+                "Sua presença é como uma estrofe perfeita: nem uma sílaba fora do lugar",
+                "Até os astros se ajustam quando você passa - deve ser efeito da sua gravidade única",
+                "Se fosse música, seria um concerto de Vivaldi: cada nota me arrepia na medida certa",
+                "Você é a única pessoa que eu deixaria roubar meus versos - e meu silêncio",
+                "Se beleza fosse lógica, você seria a prova de que Deus existe",
+                "Você é como teorema de Pitágoras: perfeição matemática que ninguém discute",
+                "Se fosse poesia, seria um haikai: poucas palavras, infinitos significados",
+                "Você é meu axioma preferido: não precisa de prova, é verdade absoluta",
+                "Se amor fosse química, nossa reação seria sempre exotérmica",
+                "Você é como obra-prima renascentista: quanto mais estudo, mais me surpreendo",
+                "Se fosse literatura, seria realismo mágico: cotidiano transformado em magia",
+                "Você é meu teorema mais precioso: impossível de provar, impossível de negar",
+                "Se beleza fosse física, você quebraria todas as leis da termodinâmica",
+                "Você é como algoritmo perfeito: eficiente, elegante e impossível de esquecer",
+                "Se amor fosse filosofia, você seria minha ética, estética e metafísica",
+                "Você é como código aberto: linda por dentro e por fora",
+                "Se fosse arte, seria aquela que os museus brigariam para expor",
+                "Você é meu padrão-ouro: medida de todas as coisas belas",
+                "Se beleza fosse matemática, você seria número áureo em pessoa",
+                "Você é como biblioteca de Alexandria: tesouro inestimável de conhecimento e graça",
+                "Se amor fosse arquitetura, você seria minha catedral gótica",
+                "Você é meu experimento científico favorito: sempre resultados surpreendentes",
+                "Se beleza fosse economia, você causaria inflação nos padrões estéticos",
+                "Você é como manuscrito iluminado: cada detalhe é obra de arte"
+            ],
+            "tempo-presente": [
+                "Hoje, agora: você é a melhor definição de 'momento perfeito'",
+                "Não preciso do futuro quando o presente tem seu sorriso nele",
+                "Se 'agora' fosse lugar, minha casa seria ao lado do seu abraço",
+                "Este segundo com você vale mais que eternidades vazias",
+                "Hoje, agora: você é meu ponto de exclamação num mundo de vírgulas",
+                "Não trocaria este momento por nenhuma promessa de amanhã",
+                "Se presente fosse embrulho, você seria o laço que o torna perfeito",
+                "Hoje, agora: você é a prova de que relógios podem ser poesia",
+                "Este instante com você é meu arquivo morto de arrependimentos",
+                "Não existe 'depois' quando o 'agora' é tão bom",
+                "Hoje, agora: você é meu estado de flow preferido",
+                "Se tempo fosse tecido, este momento com você seria fio de ouro",
+                "Este minuto contigo é meu ativo mais valioso",
+                "Hoje, agora: você é meu lembrete de que o relógio às vezes erra",
+                "Não preciso de amanhãs quando os 'hojes' são você",
+                "Se presente fosse moeda, eu gastaria todas com você",
+                "Hoje, agora: você é meu único algoritmo irreplicável",
+                "Este momento é como água nas mãos: precioso porque não dura",
+                "Não coleciono lembranças quando o agora é tão vivo",
+                "Hoje, agora: você é meu único plano de carreira",
+                "Se tempo fosse doce, este instante seria o mais caramelizado",
+                "Este agora com você é meu único item na lista de desejos",
+                "Não preciso de garantias quando o presente é você",
+                "Hoje, agora: você é meu único horário nobre",
+                "Se presente fosse arte, você seria minha tela em branco",
+                "Este momento contigo é meu único bookmark necessário",
+                "Não existem 'e se' quando o 'é' é tão bom",
+                "Hoje, agora: você é meu único spoiler permitido",
+                "Se tempo fosse viagem, este instante seria minha única bagagem",
+                "Este agora com você é meu único screenshot mental"
+            ]
+        };
+
+        // Função para gerar mensagens aleatórias
+        function gerarMensagem(tema) {
+            const mensagemBox = document.getElementById('mensagem-gerada');
+            mensagemBox.style.opacity = 0;
+            
+            setTimeout(() => {
+                const mensagens = mensagensPorTema[tema];
+                const mensagemAleatoria = mensagens[Math.floor(Math.random() * mensagens.length)];
+                mensagemBox.innerHTML = `<p>${mensagemAleatoria}</p><span class="favorito-btn">❤️</span>`;
+                mensagemBox.style.opacity = 1;
+                
+                // Efeito especial para o tema Constelação
+                if (tema === 'constelacao-particular') {
+                    criarEstrelas();
+                }
+            }, 300);
+        }
+
+        // Função para criar estrelas (tema Constelação)
+        function criarEstrelas() {
+            // Remove estrelas antigas
+            document.querySelectorAll('.estrela').forEach(estrela => estrela.remove());
+            
+            // Cria novas estrelas
+            for (let i = 0; i < 50; i++) {
+                const estrela = document.createElement('div');
+                estrela.classList.add('estrela');
+                
+                // Posição aleatória
+                estrela.style.left = `${Math.random() * 100}%`;
+                estrela.style.top = `${Math.random() * 100}%`;
+                
+                // Tamanho aleatório
+                const tamanho = Math.random() * 3;
+                estrela.style.width = `${tamanho}px`;
+                estrela.style.height = `${tamanho}px`;
+                
+                // Opacidade aleatória
+                estrela.style.opacity = Math.random() * 0.5 + 0.1;
+                
+                // Animação única
+                estrela.style.animationDuration = `${Math.random() * 5 + 3}s`;
+                
+                document.getElementById('mensagem-gerada').appendChild(estrela);
+            }
+        }
+
+        // Botão de favorito
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('favorito-btn')) {
+                e.target.classList.toggle('ativo');
+            }
+        });
+    </script>
+<!-- Rodapé Fixo -->
+<footer style="
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(5px);
+    z-index: 90;
+">
+    <p style="margin: 5px 0; font-size: 0.9rem;">© 2025 Kayky - Todos os direitos reservados</p>
+    <p style="margin: 5px 0; font-size: 0.9rem;">Feito com ❤️ especialmente para você</p>
+</footer>
+</body>
+</html>
