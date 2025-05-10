@@ -277,6 +277,19 @@
             const menu = document.querySelector('.menu');
             menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
         });
+        // Pegar o formulário de contato
+const formContato = document.getElementById('form-contato'); // (adicione id="form-contato" no <form> se não tiver)
+
+formContato.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const mensagem = document.getElementById('mensagem-contato').value;
+  
+  if (mensagem.trim() !== '') {
+    historico.salvar('contato', mensagem);
+    alert('Mensagem enviada ao seu coração 💌');
+    formContato.reset();
+  }
+});
     </script>
 </body>
 </html>
