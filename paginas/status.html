@@ -212,35 +212,18 @@
             menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
         });
 
-        // Sistema de salvamento (igual à página de serviços)
-        function salvarStatus() {
-            // Adicione os novos IDs para salvar automaticamente
-const status = {
+function salvarStatus() {
+  const status = {
     energia: document.getElementById('energia').value,
     social: document.getElementById('social').value,
     cansaco: document.getElementById('cansaco').value,
     conexao: document.getElementById('conexao').value,
-    momentoDia: document.getElementById('momento-dia').value,
-    saudade: document.getElementById('saudade').value,
-    criatividade: document.getElementById('criatividade').value,
-    musica: document.getElementById('musica').value,
-    insideJoke: document.getElementById('inside-joke').value,
     mensagem: document.getElementById('mensagem-livre').value
-};
-
-        // Carrega status salvo
-        function carregarStatus() {
-            const salvo = localStorage.getItem('statusDiario');
-            if (salvo) {
-                const status = JSON.parse(salvo);
-                document.getElementById('energia').value = status.energia;
-                document.getElementById('social').value = status.social;
-                document.getElementById('cansaco').value = status.cansaco;
-                document.getElementById('conexao').value = status.conexao;
-                document.getElementById('mensagem-livre').value = status.mensagem || '';
-            }
-        }
-
+  };
+  
+  localStorage.setItem('statusDiario', JSON.stringify(status));
+  historico.salvar('status', status); // <--- LINHA NOVA!
+}
         // Ouvir mudanças
         document.querySelectorAll('.status-slider, #mensagem-livre').forEach(elemento => {
             elemento.addEventListener('input', salvarStatus);
