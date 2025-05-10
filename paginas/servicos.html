@@ -306,6 +306,24 @@
                 // }
             });
         });
+        // Capturar escolhas de serviços
+document.querySelectorAll('.toggle-switch input').forEach(checkbox => {
+  checkbox.addEventListener('change', function() {
+    const servico = this.closest('.servico-container').querySelector('.servico-title').textContent;
+    const estado = this.checked ? 'Ativado' : 'Desativado';
+    
+    historico.salvar('servico', `${servico}: ${estado}`);
+  });
+});
+
+// Capturar comentários
+document.querySelectorAll('.comentario-input').forEach(textarea => {
+  textarea.addEventListener('change', function() {
+    if (this.value.trim() !== '') {
+      historico.salvar('comentario-servico', this.value);
+    }
+  });
+});
     </script>
 </body>
 </html>
